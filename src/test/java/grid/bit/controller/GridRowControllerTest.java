@@ -19,40 +19,48 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @Sql("GridColumnControllerTest.sql")
-public class GridColumnControllerTest extends AbstractIntegrationTest {
-    private static final String BASE_URL = "/grid/column";
+public class GridRowControllerTest extends AbstractIntegrationTest {
+    private static final String BASE_URL = "/grid/row";
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void insert_addsNewColumnToGrid() throws Exception {
-        mockMvc.perform(post(BASE_URL).param("afterColumnId", "5550005551201").accept(APPLICATION_JSON))
+    public void insert_addsNewRowToGrid() throws Exception {
+        mockMvc.perform(post(BASE_URL).param("afterRowId", "5550005551201").accept(APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentTypeCompatibleWith(APPLICATION_JSON))
                 .andExpect(content().json("{id: 5550005552001}"));
         flushAndClear();
 
         Grid grid = findByName(Grid.class, "A");
-        assertThat(grid.getColumns()).hasSize(3);
-        assertThat(grid.getColumns().get(0)).hasFieldOrPropertyWithValue("id", 5550005551201L);
-        assertThat(grid.getColumns().get(0)).hasFieldOrPropertyWithValue("number", 1);
-        assertThat(grid.getColumns().get(1)).hasFieldOrPropertyWithValue("id", 5550005552001L);
-        assertThat(grid.getColumns().get(1)).hasFieldOrPropertyWithValue("number", 2);
-        assertThat(grid.getColumns().get(2)).hasFieldOrPropertyWithValue("id", 5550005551202L);
-        assertThat(grid.getColumns().get(2)).hasFieldOrPropertyWithValue("number", 3);
+        assertThat(grid.getRows()).hasSize(5);
+        assertThat(grid.getRows().get(0)).hasFieldOrPropertyWithValue("id", 5550005551201L);
+        assertThat(grid.getRows().get(0)).hasFieldOrPropertyWithValue("number", 1);
+        assertThat(grid.getRows().get(1)).hasFieldOrPropertyWithValue("id", 5550005552001L);
+        assertThat(grid.getRows().get(1)).hasFieldOrPropertyWithValue("number", 2);
+        assertThat(grid.getRows().get(2)).hasFieldOrPropertyWithValue("id", 5550005551202L);
+        assertThat(grid.getRows().get(2)).hasFieldOrPropertyWithValue("number", 3);
+        assertThat(grid.getRows().get(3)).hasFieldOrPropertyWithValue("id", 5550005551203L);
+        assertThat(grid.getRows().get(3)).hasFieldOrPropertyWithValue("number", 4);
+        assertThat(grid.getRows().get(4)).hasFieldOrPropertyWithValue("id", 5550005551204L);
+        assertThat(grid.getRows().get(4)).hasFieldOrPropertyWithValue("number", 5);
     }
 
     @Test
-    public void delete_deletesColumnFromGrid() throws Exception {
+    public void delete_deletesRowFromGrid() throws Exception {
         mockMvc.perform(delete(BASE_URL + "/{id}", 5550005551202L))
                 .andExpect(status().isNoContent());
         flushAndClear();
 
         Grid grid = findByName(Grid.class, "A");
-        assertThat(grid.getColumns()).hasSize(1);
-        assertThat(grid.getColumns().get(0)).hasFieldOrPropertyWithValue("id", 5550005551201L);
-        assertThat(grid.getColumns().get(0)).hasFieldOrPropertyWithValue("number", 1);
+        assertThat(grid.getRows()).hasSize(3);
+        assertThat(grid.getRows().get(0)).hasFieldOrPropertyWithValue("id", 5550005551201L);
+        assertThat(grid.getRows().get(0)).hasFieldOrPropertyWithValue("number", 1);
+        assertThat(grid.getRows().get(1)).hasFieldOrPropertyWithValue("id", 5550005551203L);
+        assertThat(grid.getRows().get(1)).hasFieldOrPropertyWithValue("number", 2);
+        assertThat(grid.getRows().get(2)).hasFieldOrPropertyWithValue("id", 5550005551204L);
+        assertThat(grid.getRows().get(2)).hasFieldOrPropertyWithValue("number", 3);
     }
 
     @Disabled // ToDo: enable

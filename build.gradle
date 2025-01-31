@@ -22,6 +22,7 @@ repositories {
 ext {
     postgresqlJdbcVersion = '42.7.4'
     flywayVersion = '11.1.0'
+    lombokVersion = '1.18.36'
 }
 
 // Feel free to add new dependencies in the section below
@@ -32,11 +33,15 @@ dependencies {
 
     implementation "org.postgresql:postgresql:$postgresqlJdbcVersion"
 
+//    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.0'
+
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation "org.flywaydb:flyway-core:$flywayVersion"
     testImplementation "org.flywaydb:flyway-database-postgresql:$flywayVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 }
 
 tasks.withType(JavaCompile) {
