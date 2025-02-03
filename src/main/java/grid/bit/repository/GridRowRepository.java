@@ -31,23 +31,4 @@ public interface GridRowRepository extends JpaRepository<GridRow, Long> {
                     select * from grid_row where grid_id = :gridId and number > :afterNumber order by number asc
                     """)
     List<GridRow> findByGridIdAndAfterNumberOrderByAsc(Long gridId, int afterNumber);
-
-    //TODO обновить запрос
-    @Modifying
-    @Query(nativeQuery = true,
-            value = """
-                    update grid_row
-                    set number = number - 1
-                    where id in
-                    (select id from grid_row where grid_id = :gridId and number > :afterNumber order by number asc)
-                    """
-    )
-    int decNumberAfter(Long gridId, int afterNumber);
-
-    @Modifying
-    @Query(nativeQuery = true,
-            value = """
-                    delete from grid_row where id = :id
-                    """)
-    void delete(Long id);
 }
