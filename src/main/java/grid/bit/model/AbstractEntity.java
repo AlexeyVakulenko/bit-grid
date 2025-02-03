@@ -1,8 +1,12 @@
 package grid.bit.model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 import org.springframework.data.domain.Persistable;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 

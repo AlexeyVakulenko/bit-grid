@@ -2,7 +2,6 @@ package grid.bit.controller;
 
 import grid.bit.AbstractIntegrationTest;
 import grid.bit.model.Grid;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -55,7 +54,6 @@ public class GridColumnControllerTest extends AbstractIntegrationTest {
         assertThat(grid.getColumns().get(0)).hasFieldOrPropertyWithValue("number", 1);
     }
 
-    @Disabled // ToDo: enable
     @Test
     public void getCommonPrefix_evaluatesCorrectly() throws Exception {
         mockMvc.perform(get(BASE_URL + "/{id}/common-prefix", 5550005551201L).accept(APPLICATION_JSON))

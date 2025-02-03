@@ -30,14 +30,6 @@ public class GridColumn extends AbstractEntity<Long> {
         this.grid = grid;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
     @ManyToOne
     @JoinColumn(name = "grid_id")
     public Grid getGrid() {
@@ -47,9 +39,5 @@ public class GridColumn extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "gridColumnId", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     public List<GridCell> getCells() {
         return cells;
-    }
-
-    public void setCells(List<GridCell> cells) {
-        this.cells = cells;
     }
 }

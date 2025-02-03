@@ -1,8 +1,8 @@
 package grid.bit.service;
 
 import grid.bit.dto.CreateGridDto;
-import grid.bit.dto.UpdateGridDto;
 import grid.bit.dto.ShortGridDto;
+import grid.bit.dto.UpdateGridDto;
 import grid.bit.model.Grid;
 import grid.bit.model.GridCell;
 import grid.bit.model.GridColumn;
@@ -47,16 +47,16 @@ public class GridService {
         return new ShortGridDto(grid.getId(), grid.getName(), grid.getCellSize());
     }
 
-    public ShortGridDto updateGrid(Long id, UpdateGridDto updateGridDto) {
-//        gridRepository.updateName(id, patchGridDto.getName());
+    @Transactional
+    public void updateGrid(Long id, UpdateGridDto updateGridDto) {
         Grid grid = gridRepository.getReferenceById(id);
         if (!ObjectUtils.nullSafeEquals(grid.getName(), updateGridDto.getName())) {
             grid.setName(updateGridDto.getName());
-            grid = gridRepository.save(grid);
+            gridRepository.save(grid);
         }
-        return new ShortGridDto(grid.getId(), grid.getName(), grid.getCellSize());
     }
 
+    @Transactional
     public void deleteGrid(Long id) {
         gridRepository.deleteById(id);
     }

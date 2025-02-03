@@ -1,11 +1,11 @@
 package grid.bit.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Data
 public class ErrorResponse {
-    private final String message;
-    private final Exception e;
+    private String message;
+    private Exception e;
 }

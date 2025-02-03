@@ -1,7 +1,6 @@
 package grid.bit.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
+import grid.bit.validator.CellValueConstraint;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
@@ -13,8 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.domain.Persistable;
-
-import java.io.Serializable;
 
 @Getter
 @Setter
@@ -28,6 +25,7 @@ public class GridCell implements Persistable<CompositeKey> {
     private Long gridColumnId;
     @Id
     private Long gridRowId;
+    @CellValueConstraint
     private String value;
 
     @ManyToOne

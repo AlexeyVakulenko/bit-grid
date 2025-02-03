@@ -1,12 +1,19 @@
 package grid.bit.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -14,6 +21,8 @@ import java.util.List;
 @Table(name = "grid")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Grid extends AbstractEntity<Long> {
     @NotBlank
     @Size(min = 1, max = 200)
@@ -24,21 +33,9 @@ public class Grid extends AbstractEntity<Long> {
     private List<GridColumn> columns;
     private List<GridRow> rows;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Column(name = "cell_size")
     public int getCellSize() {
         return cellSize;
-    }
-
-    public void setCellSize(int cellSize) {
-        this.cellSize = cellSize;
     }
 
     @OrderBy("number")
@@ -47,17 +44,9 @@ public class Grid extends AbstractEntity<Long> {
         return columns;
     }
 
-    public void setColumns(List<GridColumn> columns) {
-        this.columns = columns;
-    }
-
     @OrderBy("number")
     @OneToMany(mappedBy = "grid", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     public List<GridRow> getRows() {
         return rows;
-    }
-
-    public void setRows(List<GridRow> rows) {
-        this.rows = rows;
     }
 }

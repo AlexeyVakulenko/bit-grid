@@ -14,3 +14,7 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+
+main:
+  maxColumnCount: 10
+  maxRowCount: 100_000
